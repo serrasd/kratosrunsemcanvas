@@ -31,20 +31,23 @@ let frameAtual = 0
 let pulando = false
 let velocidadeY = 0
 const gravidade = 1.2
-const alturaPulo = 14
+const alturaPulo = 18
 const yChao = 53
 let trocaFramePulo = 0
 
-const frameInterval = 1000 / 12
+const frameInterval = 2000 / 90
 let pontuacao = 0
 let velocidadeFundo = 15
 
 let xObstaculo = window.innerWidth
-const yObstaculo = 48
-const larguraObstaculo = 50
-const alturaObstaculo = 50
+const yObstaculo = 37
+const larguraObstaculo = 90
+const alturaObstaculo = 90
 
 let jogoAtivo = true
+
+let ultimoFrame = 0
+let delayTrocaImagem = 100
 
 function desenharFundo() {
   fundo.style.backgroundImage = `url(${imagemFundo.src})`
@@ -96,14 +99,22 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
-function atualizarPontuacao() {
-  pontuacao++
-  pontuacaoElemento.textContent = pontuacao.toString().padStart(2, '0');
+let contadorFramesPontuacao = 0;
+const intervaloPontuacao = 5;
 
-  if (pontuacao % 100 === 0) {
-    velocidadeFundo += 2
+function atualizarPontuacao() {
+  contadorFramesPontuacao++;
+  if (contadorFramesPontuacao >= intervaloPontuacao) {
+    pontuacao++;
+    pontuacaoElemento.textContent = pontuacao.toString().padStart(2, '0');
+    contadorFramesPontuacao = 0;
+
+    if (pontuacao % 100 === 0) {
+      velocidadeFundo += 0.1;
+    }
   }
 }
+
 
 function desenharObstaculo() {
   const obstaculo = document.getElementById('obstaculo')
@@ -120,8 +131,8 @@ function verificarColisao() {
   const kratosTopo = yKratos + 40
 
   const obstaculoEsquerda = xObstaculo
-  const obstaculoDireita = xObstaculo + larguraObstaculo
-  const obstaculoTopo = yObstaculo + alturaObstaculo
+  const obstaculoDireita = xObstaculo + 70
+  const obstaculoTopo = yObstaculo + 70
 
   if (
     kratosDireita > obstaculoEsquerda &&
@@ -135,13 +146,26 @@ function verificarColisao() {
   }
 }
 
+function atualizarAnimacao() {
+  const agora = Date.now()
+
+  if (agora - ultimoFrame >= delayTrocaImagem) {
+    if (!pulando) {
+      frameAtual = (frameAtual + 1) % imagensAndando.length
+      desenharKratos(imagensAndando[frameAtual])
+    } else {
+      const imagemAtualPulo = imagensPulo[Math.floor(trocaFramePulo)]
+      desenharKratos(imagemAtualPulo)
+    }
+    ultimoFrame = agora
+  }
+}
+
 setInterval(() => {
   if (!jogoAtivo) return
 
   if (pulando) {
     aplicarGravidade()
-  } else {
-    animarCorrida()
   }
 
   desenharFundo()
@@ -159,3 +183,5 @@ setInterval(() => {
   verificarColisao()
   atualizarPontuacao()
 }, frameInterval)
+
+setInterval(atualizarAnimacao, 50)
