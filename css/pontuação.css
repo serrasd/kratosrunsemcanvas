@@ -1,0 +1,16 @@
+.pontuacao {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.8rem;
+    position: absolute;
+    z-index: 1;
+}
+
+.valor-pontuacao {
+    font-weight: 700;
+    font-size: 4.5rem;
+    display: block;
+    margin-top: -10px;
+}

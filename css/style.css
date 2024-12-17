@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+#fundo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#kratos {
+  position: absolute;
+  bottom: 20px;
+  left: 32px;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+}
