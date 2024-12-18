@@ -1,4 +1,4 @@
-<h1 align="center"> Snake Game </h1>
+<h1 align="center"> Kratos Run </h1>
 
 <p align="center">
 Jogo inspirado no Dino Run onde você controla Kratos com a barra de espaço, pulando obstáculos para acumular pontos. Um desafio simples e divertido para testar seus reflexos!
