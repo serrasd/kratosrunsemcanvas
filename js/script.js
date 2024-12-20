@@ -17,13 +17,13 @@ imagemFundo.src = 'assets/imgs/background.png'
 imagemObstaculo.src = 'assets/imgs/pedra.png'
 
 
-for (let i = 1; i <= 8; i++) {
+for (let indiceSpriteAndando = 1; indiceSpriteAndando <= 8; indiceSpriteAndando++) {
   const img = new Image()
   img.src = `assets/imgs/andar/kratos-andando-${i}.jpg`
   imagensAndando.push(img)
 }
 
-for (let i = 1; i <= 3; i++) {
+for (let indiceSpritePulando = 1; indiceSpritePulando <= 3; indiceSpritePulando++) {
   const img = new Image()
   img.src = `assets/imgs/pular/kratos-pulando-${i}.jpg`
   imagensPulo.push(img)
