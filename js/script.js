@@ -8,14 +8,12 @@ const kratos = document.getElementById('kratos')
 const fundo = document.getElementById('fundo')
 const pontuacaoElemento = document.querySelector('.valor-pontuacao')
 
-
 const imagensAndando = []
 const imagensPulo = []
 const imagemFundo = new Image()
 const imagemObstaculo = new Image()
 imagemFundo.src = 'assets/imgs/background.png'
 imagemObstaculo.src = 'assets/imgs/pedra.png'
-
 
 for (let i = 1; i <= 8; i++) {
   const img = new Image()
@@ -29,34 +27,35 @@ for (let i = 1; i <= 3; i++) {
   imagensPulo.push(img)
 }
 
+let xKratos = 70
+let yKratos = window.innerHeight * 0.07
+let velocidadeY = 0
+let pulando = false
+let ultimoFrame = 0
+let trocaFramePulo = 0
+let delayTrocaImagemKratosAndando = 100
+let frameAtual = 0
+
 
 let xFundo = 0
-let xKratos = 70
-let yKratos = window.innerHeight * 0.07 
-let velocidadeY = 0
 let velocidadeFundo = 15
 
-let pulando = false
-let frameAtual = 0
-let trocaFramePulo = 0
-let ultimoFrame = 0
-let delayTrocaImagemKratosAndando = 100
+
 let contadorFramesPontuacao = 0
-let intervaloPontuacao = 1
-
+let intervaloPontuacao = 2
 let pontuacao = 0
+
+
 let xObstaculo = window.innerWidth
-let jogoAtivo = true
-
-
 const yObstaculo = window.innerHeight * 0.05
-const frameInterval = 2000 / 90
 const larguraObstaculo = 90
 const alturaObstaculo = 90
-const gravidade = 1.2
-const alturaPulo = 18
-const yChao = 53
 
+let jogoAtivo = true
+const yChao = 53
+const alturaPulo = 18
+const gravidade = 1.2
+const frameInterval = 2000 / 90
 
 function desenharFundo() {
   fundo.style.backgroundImage = `url(${imagemFundo.src})`
@@ -107,7 +106,7 @@ function atualizarPontuacao() {
     contadorFramesPontuacao = 0
 
     if (pontuacao % 100 === 0) {
-      velocidadeFundo += 1.5
+      velocidadeFundo += 0.5
     }
   }
 }
@@ -118,7 +117,7 @@ function controlarAudio() {
 
   } else {
     audio.pause()
-    morte.play()  
+    morte.play()
   }
 }
 
@@ -152,7 +151,7 @@ function verificarColisao() {
       alert('Game Over');
       location.reload();
     }, 10);
-}
+  }
 }
 
 function atualizarAnimacao() {
